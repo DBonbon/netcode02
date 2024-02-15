@@ -189,7 +189,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339108545153035326}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e002347a9472f74fb779b49f0cbdebd, type: 3}
   m_Name: 
@@ -376,10 +376,7 @@ MonoBehaviour:
     m_InternalValue: 0
   HasTurn:
     m_InternalValue: 0
-  Numi:
-    m_InternalValue: 3
   playerHandPrefab: {fileID: 0}
-  playerHand: {fileID: 5315489125756686426}
   playerQuartets: {fileID: 0}
 --- !u!114 &8333241961384468523
 MonoBehaviour:
@@ -1435,8 +1432,6 @@ MonoBehaviour:
         byte0123: 0
         byte0124: 0
         byte0125: 0
-  gameObject: {fileID: 0}
-  siblingNames: []
 --- !u!1 &6941149681232152235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,8 +2124,6 @@ MonoBehaviour:
         byte0123: 0
         byte0124: 0
         byte0125: 0
-  gameObject: {fileID: 0}
-  siblingNames: []
 --- !u!1001 &2063341765796887268
 PrefabInstance:
   m_ObjectHideFlags: 0
