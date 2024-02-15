@@ -36,11 +36,12 @@ public class Player : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        playerUI = GetComponent<PlayerUI>();
+        //playerUI = GetComponent<PlayerUI>();
 
         if (IsServer)
         {
             Score.Value = 0; // Initialize or re-assign to ensure it's set on all clients.
+            PlayerManager.Instance.RegisterPlayer(NetworkObjectId);
         }
 
         // Subscribe to Score value changes to update UI accordingly.

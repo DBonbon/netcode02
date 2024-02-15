@@ -11,6 +11,13 @@ public class PlayerManager : NetworkBehaviour
     public List<Player> players = new List<Player>();
     private List<PlayerData> playerDataList;
 
+    public GameObject playerPrefab; // Prefab with Player script attached
+    public GameObject playerUIPrefab; // Prefab with PlayerUI script attached
+
+
+    private Dictionary<Player, PlayerUI> playerUITracking = new Dictionary<Player, PlayerUI>();
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,10 +35,10 @@ public class PlayerManager : NetworkBehaviour
     private void OnDestroy()
     {
         DataManager.OnPlayerDataLoaded -= LoadPlayerDataLoaded; // Unsubscribe from event
-        if (NetworkManager.Singleton != null)
+        /*if (NetworkManager.Singleton != null)
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
-        }
+        }*/
     }
 
     public void LoadPlayerDataLoaded(List<PlayerData> loadedPlayerDataList)
@@ -42,10 +49,52 @@ public class PlayerManager : NetworkBehaviour
 
     private void Start()
     {
-        NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+        //NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
     }
 
-    private void OnClientConnected(ulong clientId)
+    public void RegisterPlayer(ulong networkId)
+    {
+        Debug.Log("RegisterPlayer is called");
+        Player player = FindPlayerByNetworkId(networkId);
+        if (player == null)
+        {
+            Debug.LogError("Player not found for NetworkID: " + networkId);
+            return;
+        }
+        
+        PlayerUI playerUI = InstantiatePlayerUIForPlayer(player);
+        playerUITracking[player] = playerUI;
+    }
+
+    private Player FindPlayerByNetworkId(ulong networkId)
+    {
+        Debug.Log("FindPlayerByNetworkId is called");
+        foreach (var kvp in NetworkManager.Singleton.SpawnManager.SpawnedObjects)
+        {
+            if (kvp.Key == networkId)
+            {
+                Player player = kvp.Value.GetComponent<Player>();
+                if (player != null)
+                {
+                    return player;
+                }
+            }
+        }
+        return null;
+    }
+
+    private PlayerUI InstantiatePlayerUIForPlayer(Player player)
+    {
+        Debug.Log("InstantiatePlayerUIForPlayer is called");
+        GameObject uiGameObject = Instantiate(playerUIPrefab);
+        PlayerUI playerUI = uiGameObject.GetComponent<PlayerUI>();
+        // Setup playerUI based on player, if necessary
+        return playerUI;
+    }
+
+
+
+    private void InstantiatePlayer(ulong clientId)
     {
         if (!IsServer) return;
 
