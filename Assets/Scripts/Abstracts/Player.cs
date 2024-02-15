@@ -36,18 +36,18 @@ public class Player : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        //playerUI = GetComponent<PlayerUI>();
-
         if (IsServer)
         {
-            Score.Value = 0; // Initialize or re-assign to ensure it's set on all clients.
-            PlayerManager.Instance.RegisterPlayer(NetworkObjectId);
-        }
+            Debug.Log($"Player Id is: {NetworkObjectId}");
+            Score.Value = 0;
 
+            PlayerManager.Instance.RegisterPlayer(this);
+        }
         // Subscribe to Score value changes to update UI accordingly.
         Score.OnValueChanged += OnScoreChanged;
         OnScoreChanged(0, Score.Value); // Manually trigger the update to set initial UI state.
     }
+
 
     private void OnScoreChanged(int oldValue, int newValue)
     {
@@ -65,12 +65,13 @@ public class Player : NetworkBehaviour
 
     public void InitializePlayer(string name, int dbId, string imagePath)
     {
+        Debug.Log("InitializedPlayer is called");
         if (IsServer)
         {
             PlayerName.Value = name;
             PlayerDbId.Value = dbId;
             PlayerImagePath.Value = imagePath;
-
+            Debug.Log($"Player name is: {PlayerName.Value} + PlayerDbId is: {PlayerDbId.Value} + playerimagepath is: {PlayerImagePath.Value}");
             // Update server UI directly here
             UpdateServerUI(name, imagePath);
             // setup and we want to immediately propagate these values to all clients.
@@ -85,7 +86,7 @@ public class Player : NetworkBehaviour
     {
         if (playerUI != null)
         {
-            playerUI.InitializePlayerUI(playerName, playerImagePath);
+            //playerUI.InitializePlayerUI(playerName, playerImagePath);
             playerUI.UpdateHasTurnUI(HasTurn.Value);
         }
     }
@@ -103,7 +104,7 @@ public class Player : NetworkBehaviour
     {
         if (playerUI != null)
         {
-            playerUI.InitializePlayerUI(playerName, playerImagePath);
+            //playerUI.InitializePlayerUI(playerName, playerImagePath);
         }
     }
 

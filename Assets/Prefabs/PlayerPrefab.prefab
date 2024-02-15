@@ -247,5 +247,5 @@ MonoBehaviour:
     m_InternalValue: 0
   HasTurn:
     m_InternalValue: 0
-  playerHandPrefab: {fileID: 0}
+  playerHandPrefab: {fileID: 2992796968267101061, guid: a58ce34d86222cb4faa38f6fe617c6ad, type: 3}
   playerQuartets: {fileID: 0}

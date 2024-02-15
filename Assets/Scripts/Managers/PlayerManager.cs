@@ -6,14 +6,15 @@ using Unity.Netcode;
 public class PlayerManager : NetworkBehaviour
 {
     public static PlayerManager Instance;
+    
+    public GameObject playerPrefab; // Prefab with Player script attached
+    public GameObject playerUIPrefab; // Prefab with PlayerUI script attached
+    public Transform playerUIParent;
+
     public static int TotalPlayerPrefabs = 2; // Adjust based on your game's needs
     private int connectedPlayers = 0;
     public List<Player> players = new List<Player>();
     private List<PlayerData> playerDataList;
-
-    public GameObject playerPrefab; // Prefab with Player script attached
-    public GameObject playerUIPrefab; // Prefab with PlayerUI script attached
-
 
     private Dictionary<Player, PlayerUI> playerUITracking = new Dictionary<Player, PlayerUI>();
 
@@ -32,14 +33,6 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        DataManager.OnPlayerDataLoaded -= LoadPlayerDataLoaded; // Unsubscribe from event
-        /*if (NetworkManager.Singleton != null)
-        {
-            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
-        }*/
-    }
 
     public void LoadPlayerDataLoaded(List<PlayerData> loadedPlayerDataList)
     {
@@ -49,32 +42,72 @@ public class PlayerManager : NetworkBehaviour
 
     private void Start()
     {
-        //NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-    }
-
-    public void RegisterPlayer(ulong networkId)
-    {
-        Debug.Log("RegisterPlayer is called");
-        Player player = FindPlayerByNetworkId(networkId);
-        if (player == null)
+        /*if (NetworkManager.Singleton.IsServer)
+        Debug.Log("pl.maanger has started");
         {
-            Debug.LogError("Player not found for NetworkID: " + networkId);
-            return;
-        }
-        
-        PlayerUI playerUI = InstantiatePlayerUIForPlayer(player);
-        playerUITracking[player] = playerUI;
+            NetworkManager.Singleton.OnClientConnectedCallback += RegisterPlayer;
+        }*/
     }
 
-    private Player FindPlayerByNetworkId(ulong networkId)
+    private void OnDestroy()
     {
-        Debug.Log("FindPlayerByNetworkId is called");
+        DataManager.OnPlayerDataLoaded -= LoadPlayerDataLoaded; // Unsubscribe from event
+        /*if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+        {
+            NetworkManager.Singleton.OnClientConnectedCallback -= RegisterPlayer;
+        }*/
+    }
+
+    public void RegisterPlayer(Player player)
+    {
+        ulong networkId = player.NetworkObjectId;
+
+        // Assuming each player has predefined data you wish to associate
+        if (playerDataList.Count > connectedPlayers)
+        {
+            var data = playerDataList[connectedPlayers++];
+            player.InitializePlayer(data.playerName, data.playerDbId, data.playerImagePath);
+        }
+
+        // Instantiate and set up the PlayerUI
+        PlayerUI playerUI = Instantiate(playerUIPrefab, playerUIParent).GetComponent<PlayerUI>();
+
+        // Configure playerUI as needed...
+        playerUI.InitializePlayerUI(player.PlayerName.Value.ToString(), player.PlayerImagePath.Value.ToString());
+        
+        playerUITracking.Add(player, playerUI);
+        players.Add(player);
+    }
+
+
+    /*private Player FindPlayerByNetworkObjectId(ulong NetworkObjectId)
+    {
+        Debug.Log("FindPlayerByNetworkObjectId is called");
         foreach (var kvp in NetworkManager.Singleton.SpawnManager.SpawnedObjects)
         {
-            if (kvp.Key == networkId)
+            Debug.Log($"Checking SpawnedObject with NetworkObjectId: {kvp.Key}");
+            if (kvp.Key == NetworkObjectId)
             {
                 Player player = kvp.Value.GetComponent<Player>();
                 if (player != null)
+                {
+                    Debug.Log($"Player found for NetworkObjectId: {NetworkObjectId}");
+                    return player;
+                }
+            }
+        }
+        Debug.LogError($"Player not found for NetworkObjectId: {NetworkObjectId}");
+        return null;
+    }*/
+
+    private Player FindPlayerByNetworkObjectId(ulong NetworkObjectId)
+    {
+        foreach (var kvp in NetworkManager.Singleton.SpawnManager.SpawnedObjects)
+        {
+            if (kvp.Value.GetComponent<Player>() != null) // Check if it's a player object
+            {
+                Player player = kvp.Value.GetComponent<Player>();
+                if (player != null && kvp.Key == NetworkObjectId)
                 {
                     return player;
                 }
@@ -83,33 +116,27 @@ public class PlayerManager : NetworkBehaviour
         return null;
     }
 
-    private PlayerUI InstantiatePlayerUIForPlayer(Player player)
-    {
-        Debug.Log("InstantiatePlayerUIForPlayer is called");
-        GameObject uiGameObject = Instantiate(playerUIPrefab);
-        PlayerUI playerUI = uiGameObject.GetComponent<PlayerUI>();
-        // Setup playerUI based on player, if necessary
-        return playerUI;
-    }
-
-
-
-    private void InstantiatePlayer(ulong clientId)
-    {
+    private void InitializePlayerData(ulong NetworkObjectId)
+    {   
+        Debug.Log("InitializePlayerData is called");
+        Debug.Log($"Server side call : {IsServer}");
         if (!IsServer) return;
-
+        Debug.Log("InstantiatePlayer0 is called");
         connectedPlayers++;
-        var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(clientId);
+        var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(NetworkObjectId);
+        Debug.Log("InstantiatePlayer1 is called");
         if (playerObject != null)
         {
+            Debug.Log("InstantiatePlayer2 is called");
             var player = playerObject.GetComponent<Player>();
             if (player != null && connectedPlayers <= playerDataList.Count)
             {
                 string playerImagePath = "Images/character_01"; // Default image path
                 var playerData = playerDataList[connectedPlayers - 1]; // Example, adjust as necessary
                 player.InitializePlayer(playerData.playerName, playerData.playerDbId, playerData.playerImagePath);
+                Debug.Log("InstantiatePlayer3 is called");
                 // New logic to broadcast existing player names to the newly connected client
-                BroadcastPlayerNamesToNewClient(clientId);
+                BroadcastPlayerNamesToNewClient(NetworkObjectId);
 
                 players.Add(player);
                 if (connectedPlayers == TotalPlayerPrefabs)
@@ -119,6 +146,16 @@ public class PlayerManager : NetworkBehaviour
                 }
             }
         }
+    }
+
+    private PlayerUI InstantiatePlayerUIForPlayer(Player player)
+    {
+        Debug.Log("InstantiatePlayerUIForPlayer is called");
+        //GameObject uiGameObject = Instantiate(playerUIPrefab);
+        GameObject uiGameObject = Instantiate(playerUIPrefab, playerUIParent); 
+        PlayerUI playerUI = uiGameObject.GetComponent<PlayerUI>();
+        // Setup playerUI based on player, if necessary
+        return playerUI;
     }
 
     private void BroadcastPlayerNamesToNewClient(ulong newClientId)
