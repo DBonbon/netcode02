@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &25339876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c8a33a9de53754082e5d820bcb5966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckPrefab: {fileID: 6045256632694920856, guid: 8699c37e7312bd24da388eae4fa70e4f, type: 3}
+  deckPrefab: {fileID: 1790722505002186376, guid: 06bf1bf3551d6aa4b881974d323b747b, type: 3}
 --- !u!1 &169057577
 GameObject:
   m_ObjectHideFlags: 0
