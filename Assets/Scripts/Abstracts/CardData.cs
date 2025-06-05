@@ -10,7 +10,7 @@ public class CardData
     public string cardName;
     public string hint;
     public string level;
-    public string cardImage;
+    public string icon;
     public List<string> siblings; // List to store sibling card names
     
 

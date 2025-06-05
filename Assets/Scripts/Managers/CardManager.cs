@@ -110,7 +110,8 @@ public class CardManager : MonoBehaviour
                 if (cardComponent != null)
                 {
                     // Initialize the card
-                    cardComponent.InitializeCard(cardData.cardId, cardData.cardName, cardData.suit, cardData.hint, cardData.siblings);
+                    cardComponent.InitializeCard(cardData.cardId, cardData.cardName, cardData.suit, cardData.hint, cardData.siblings, cardData.icon);
+
                     allSpawnedCards.Add(spawnedCard);
 
                     // Assuming DeckInstance holds the deck GameObject, access Deck component to call AddCardToDeck
