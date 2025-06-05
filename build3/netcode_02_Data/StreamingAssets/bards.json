@@ -1,0 +1,185 @@
+{
+    "bards": [
+        {
+            "suit": "bard",
+            "bardName": "Alef",
+            "hint": "hint1"
+        },
+        {
+            "suit": "bard",
+            "bardName": "Bet",
+            "hint": "hint3"
+        },
+        {
+            "suit": "bard",
+            "bardName": "Cimel",
+            "hint": "hint"
+        },
+        {
+            "suit": "bard",
+            "bardName": "Dalet",
+            "hint": "hin5t"
+        },
+        {
+            "suit": "bard",
+            "bardName": "Ani",
+            "hint": "hint"
+        },
+        {
+            "suit": "bard",
+            "bardName": "Bico",
+            "hint": "hint7"
+        },
+        {
+            "suit": "bard",
+            "bardName": "Caux",
+            "hint": "hint7"
+        },
+        {
+            "suit": "bard",
+            "bardName": "Doz",
+            "hint": "hint"
+        },
+        {
+            "suit": "gard",
+            "bardName": "Ata",
+            "hint": "hint7"
+        },
+        {
+            "suit": "gard",
+            "bardName": "Beta",
+            "hint": "hint"
+        },
+        {
+            "suit": "gard",
+            "bardName": "Comment",
+            "hint": "hint"
+        },
+        {
+            "suit": "gard",
+            "bardName": "Daledi",
+            "hint": "hint"
+        },
+        {
+            "suit": "hard",
+            "bardName": "Aalki",
+            "hint": "hint6"
+        },
+        {
+            "suit": "hard",
+            "bardName": "Bita",
+            "hint": "hint"
+        },
+        {
+            "suit": "hard",
+            "bardName": "Cuta",
+            "hint": "hint5"
+        },
+        {
+            "suit": "hard",
+            "bardName": "Dita",
+            "hint": "hint"
+        },
+
+        {
+            "suit": "kard",
+            "bardName": "Aora",
+            "hint": "hint4"
+        },
+        {
+            "suit": "kard",
+            "bardName": "Bora",
+            "hint": "hint"
+        },
+        {
+            "suit": "kard",
+            "bardName": "Cora",
+            "hint": "hint"
+        },
+        {
+            "suit": "kard",
+            "bardName": "Dora",
+            "hint": "hint4"
+        },
+        {
+            "suit": "fard",
+            "bardName": "Auri",
+            "hint": "hint"
+        },
+        {
+            "suit": "fard",
+            "bardName": "Buri",
+            "hint": "hint"
+        },
+        {
+            "suit": "fard",
+            "bardName": "Curi",
+            "hint": "hint"
+        },
+        {
+            "suit": "fard",
+            "bardName": "Duri",
+            "hint": "hint"
+        },
+        {
+            "suit": "lard",
+            "bardName": "Aabo",
+            "hint": "hint"
+        },
+        {
+            "suit": "lard",
+            "bardName": "Babo",
+            "hint": "hint"
+        },
+        {
+            "suit": "lard",
+            "bardName": "Cabo",
+            "hint": "hint"
+        },
+        {
+            "suit": "lard",
+            "bardName": "Dabo",
+            "hint": "hint"
+        },
+        {
+            "suit": "nard",
+            "bardName": "All",
+            "hint": "hint"
+        },
+        {
+            "suit": "nard",
+            "bardName": "Bll",
+            "hint": "hint"
+        },
+        {
+            "suit": "nard",
+            "bardName": "Cll",
+            "hint": "hint"
+        },
+        {
+            "suit": "nard",
+            "bardName": "Dll",
+            "hint": "hint"
+        },
+        {
+            "suit": "sard",
+            "bardName": "Ao",
+            "hint": "hint"
+        },
+        {
+            "suit": "sard",
+            "bardName": "Bo",
+            "hint": "hint1"
+        },
+        {
+            "suit": "sard",
+            "bardName": "Co",
+            "hint": "hint2"
+        },
+        {
+            "suit": "sard",
+            "bardName": "Do",
+            "hint": "hint3"
+        }
+    ]
+}

@@ -1,0 +1,221 @@
+{
+    "cards": [
+        {
+            "suit": "bard",
+            "cardName": "Bni",
+            "hint": "hint7",
+            "cardId": 26
+        },
+        {
+            "suit": "bard",
+            "cardName": "Cni",
+            "hint": "hint7",
+            "cardId": 27
+        },
+        {
+            "suit": "bard",
+            "cardName": "Ddi",
+            "hint": "hint",
+            "cardId": 29
+        },
+        {
+            "suit": "bard",
+            "cardName": "Eni",
+            "hint": "hint7",
+            "cardId": 221
+        },
+        {
+            "suit": "card",
+            "cardName": "Alef",
+            "hint": "hint1",
+            "cardId": 21
+        },
+        {
+            "suit": "card",
+            "cardName": "Bet",
+            "hint": "hint3",
+            "cardId": 22
+        },
+        {
+            "suit": "card",
+            "cardName": "Cimel",
+            "hint": "hint",
+            "cardId": 23
+        },
+        {
+            "suit": "card",
+            "cardName": "Dalet",
+            "hint": "hin5t",
+            "cardId": 24
+        },
+        {
+            "suit": "dard",
+            "cardName": "Aeta",
+            "hint": "hint",
+            "cardId": 25
+        },
+        {
+            "suit": "dard",
+            "cardName": "Beta",
+            "hint": "dint",
+            "cardId": 222
+        },
+        {
+            "suit": "dard",
+            "cardName": "Ceta",
+            "hint": "hint",
+            "cardId": 223
+        },
+        {
+            "suit": "dard",
+            "cardName": "Deta",
+            "hint": "hint",
+            "cardId": 224
+        },
+        {
+            "suit": "hard",
+            "cardName": "Alki",
+            "hint": "hint6",
+            "cardId": 225
+        },
+        {
+            "suit": "hard",
+            "cardName": "Blki",
+            "hint": "hint",
+            "cardId": 226
+        },
+        {
+            "suit": "hard",
+            "cardName": "Clki",
+            "hint": "hint5",
+            "cardId": 227
+        },
+        {
+            "suit": "hard",
+            "cardName": "Dlki",
+            "hint": "hint",
+            "cardId": 228
+        },
+
+        {
+            "suit": "kard",
+            "cardName": "Aora",
+            "hint": "hint4",
+            "cardId": 229
+        },
+        {
+            "suit": "kard",
+            "cardName": "Bora",
+            "hint": "hint",
+            "cardId": 230
+        },
+        {
+            "suit": "kard",
+            "cardName": "Cora",
+            "hint": "hint",
+            "cardId": 231
+        },
+        {
+            "suit": "kard",
+            "cardName": "Dora",
+            "hint": "hint4",
+            "cardId": 232
+        },
+        {
+            "suit": "fard",
+            "cardName": "Auri",
+            "hint": "hint",
+            "cardId": 234
+        },
+        {
+            "suit": "fard",
+            "cardName": "Buri",
+            "hint": "hint",
+            "cardId": 235
+        },
+        {
+            "suit": "fard",
+            "cardName": "Curi",
+            "hint": "hint",
+            "cardId": 236
+        },
+        {
+            "suit": "fard",
+            "cardName": "Duri",
+            "hint": "hint",
+            "cardId": 237
+        },
+        {
+            "suit": "lard",
+            "cardName": "Aabo",
+            "hint": "hint",
+            "cardId": 238
+        },
+        {
+            "suit": "lard",
+            "cardName": "Babo",
+            "hint": "hint",
+            "cardId": 239
+        },
+        {
+            "suit": "lard",
+            "cardName": "Cabo",
+            "hint": "hint",
+            "cardId": 2311
+        },
+        {
+            "suit": "lard",
+            "cardName": "Dabo",
+            "hint": "hint",
+            "cardId": 2312
+        },
+        {
+            "suit": "nard",
+            "cardName": "All",
+            "hint": "hint",
+            "cardId": 2313
+        },
+        {
+            "suit": "nard",
+            "cardName": "Bll",
+            "hint": "hint",
+            "cardId": 2314
+        },
+        {
+            "suit": "nard",
+            "cardName": "Cll",
+            "hint": "hint",
+            "cardId": 2315
+        },
+        {
+            "suit": "nard",
+            "cardName": "Dll",
+            "hint": "hint",
+            "cardId": 2316
+        },
+        {
+            "suit": "sard",
+            "cardName": "Ao",
+            "hint": "hint",
+            "cardId": 2317
+        },
+        {
+            "suit": "sard",
+            "cardName": "Bo",
+            "hint": "hint1",
+            "cardId": 2318
+        },
+        {
+            "suit": "sard",
+            "cardName": "Co",
+            "hint": "hint2",
+            "cardId": 2319
+        },
+        {
+            "suit": "sard",
+            "cardName": "Do",
+            "hint": "hint3",
+            "cardId": 23111
+        }
+    ]
+}

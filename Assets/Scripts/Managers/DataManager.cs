@@ -34,6 +34,7 @@ public class DataManager : MonoBehaviour
         LoadPlayersFromJson();
         LoadCardsFromJson();
         Debug.Log($"{Time.time}:datamanager.start method has started");
+        Debug.Log("DataManager: loading card and player data.");
     }
 
     private void LoadPlayersFromJson()

@@ -1,0 +1,106 @@
+{
+    "cards": [
+        {
+            "rank": "card",
+            "name": "Alef",
+            "hint": "hint"
+        },
+        {
+            "rank": "card",
+            "name": "Bet",
+            "hint": "hint"
+        },
+        {
+            "rank": "card",
+            "name": "Cimel",
+            "hint": "hint"
+        },
+        {
+            "rank": "card",
+            "name": "Dalet",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "Ani",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "Bico",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "Caux",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "Doz",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "Ata",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "Beta",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "Comment",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "Daledi",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "Aalki",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "Bita",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "Cuta",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "Dita",
+            "hint": "hint"
+        },
+
+        {
+            "rank": "kard",
+            "name": "Aora",
+            "hint": "hint"
+        },
+        {
+            "rank": "kard",
+            "name": "Bora",
+            "hint": "hint"
+        },
+        {
+            "rank": "kard",
+            "name": "Cora",
+            "hint": "hint"
+        },
+        {
+            "rank": "kard",
+            "name": "Dora",
+            "hint": "hint"
+        }
+        
+    ]
+}

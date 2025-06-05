@@ -1,0 +1,185 @@
+{
+    "cards": [
+        {
+            "rank": "card",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "card",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "card",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "card",
+            "name": "D",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "bard",
+            "name": "D",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "gard",
+            "name": "D",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "hard",
+            "name": "D",
+            "hint": "hint"
+        },
+
+        {
+            "rank": "kard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "kard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "kard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "kard",
+            "name": "D",
+            "hint": "hint"
+        },
+        {
+            "rank": "fard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "fard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "fard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "fard",
+            "name": "D",
+            "hint": "hint"
+        },
+        {
+            "rank": "lard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "lard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "lard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "lard",
+            "name": "D",
+            "hint": "hint"
+        },
+        {
+            "rank": "nard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "nard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "nard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "nard",
+            "name": "D",
+            "hint": "hint"
+        },
+        {
+            "rank": "sard",
+            "name": "A",
+            "hint": "hint"
+        },
+        {
+            "rank": "sard",
+            "name": "B",
+            "hint": "hint"
+        },
+        {
+            "rank": "sard",
+            "name": "C",
+            "hint": "hint"
+        },
+        {
+            "rank": "sard",
+            "name": "D",
+            "hint": "hint"
+        }
+    ]
+}

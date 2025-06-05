@@ -37,6 +37,7 @@ public class CardManager : MonoBehaviour
        allCardsList = loadedCardDataList;
         ShuffleCards();
         InitializeCardUIPool(); // Ensure CardUI pool is initialized after loading data
+        Debug.Log($"CardManager: loaded {loadedCardDataList.Count} cards.");
     }
 
     private void InitializeCardUIPool()

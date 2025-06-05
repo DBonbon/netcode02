@@ -1,0 +1,17 @@
+{
+    "players": [
+      {
+        "playerName": "Player 1",
+        "score": 0,
+        "playerDbId": 12,
+        "playerImagePath": "Images/character_01"
+      },
+      {
+        "playerName": "Player 2",
+        "score": 0,
+        "playerDbId": 462,
+        "playerImagePath": "Images/character_02"
+      }
+    ]
+  }
+  

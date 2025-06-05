@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "netcode02.sln"
+    "dotnet.defaultSolution": "netcode03.sln"
 }

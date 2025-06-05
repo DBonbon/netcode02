@@ -43,7 +43,8 @@ public class PlayerManager : NetworkBehaviour
 
     public void LoadPlayerDataLoaded(List<PlayerData> loadedPlayerDataList)
     {
-        this.playerDataList = loadedPlayerDataList; 
+        this.playerDataList = loadedPlayerDataList;
+        Debug.Log($"PlayerManager: loaded {loadedPlayerDataList.Count} players.");
         //Debug.Log("Player data loaded into PlayerManager.");
     }
 
@@ -62,7 +63,7 @@ public class PlayerManager : NetworkBehaviour
         if (playerObject != null)
         {
             var player = playerObject.GetComponent<Player1>();
-            if (player != null && connectedPlayers <= playerDataList.Count)
+            if (player != null && playerDataList != null && connectedPlayers <= playerDataList.Count)
             {
                 string playerImagePath = "Images/character_01"; // Default image path
                 var playerData = playerDataList[connectedPlayers - 1]; // Example, adjust as necessary

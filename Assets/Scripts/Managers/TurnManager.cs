@@ -37,7 +37,7 @@ public class TurnManager : NetworkBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            players = PlayerManager.Instance.players1;
+            // ⚠️ Do not access players here — it may be too early
         }
         else
         {
@@ -47,10 +47,24 @@ public class TurnManager : NetworkBehaviour
     
     public void StartTurnManager()
     {
+        players = PlayerManager.Instance.players1;
+
+        if (players == null || players.Count == 0)
+        {
+            Debug.LogError("TurnManager cannot start: player list is empty!");
+            return;
+        }
+
+        foreach (var p in players)
+        {
+            Debug.Log($"[TurnManager] Player ready: {p.playerName.Value}");
+        }
+
         Debug.Log("turnmanmager started");
         AssignTurnToPlayer();
         StartTurnLoop();
     }
+
 
     private void AssignTurnToPlayer()
     {
