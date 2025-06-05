@@ -43,7 +43,6 @@ public class DeckManager : MonoBehaviour
             DeckInstance = Instantiate(deckPrefab);
             CurrentDeck = DeckInstance.GetComponent<Deck>();
             DeckInstance.GetComponent<NetworkObject>().Spawn();
-            //Debug.Log("Deck prefab spawned on server start.");
         }
     }
 }

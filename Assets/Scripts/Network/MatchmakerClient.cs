@@ -49,7 +49,7 @@ public class MatchmakerClient : MonoBehaviour
             await UnityServices.InitializeAsync();
         }
 
-        Debug.Log($"Signed In Anonymously as {serviceProfileName}({PlayerID()})");
+        //Debug.Log($"Signed In Anonymously as {serviceProfileName}({PlayerID()})");
     }
 
     private string PlayerID()
@@ -88,7 +88,7 @@ public class MatchmakerClient : MonoBehaviour
         {
             var ticketResponse = await MatchmakerService.Instance.CreateTicketAsync(players, options);
             _ticketId = ticketResponse.Id;
-            Debug.Log($"Ticket ID: {_ticketId}");
+            //Debug.Log($"Ticket ID: {_ticketId}");
             PollTicketStatus();
         }
         catch (Exception e)
@@ -143,11 +143,11 @@ public class MatchmakerClient : MonoBehaviour
                     break;
                 case StatusOptions.Failed:
                     gotAssignment = true;
-                    Debug.LogError($"Failed to get ticket Status. Error: {multiplayAssignment.Message}");
+                    //Debug.LogError($"Failed to get ticket Status. Error: {multiplayAssignment.Message}");
                     break;
                 case StatusOptions.Timeout:
                     gotAssignment = true;
-                    Debug.LogError("Failed to get ticket Status. Ticket timed out");
+                    //Debug.LogError("Failed to get ticket Status. Ticket timed out");
                     break;
                 default:
                     throw new InvalidOperationException();
@@ -157,7 +157,7 @@ public class MatchmakerClient : MonoBehaviour
 
     private void TicketAssigned(MultiplayAssignment assignment)
     {
-        Debug.Log($"Ticket Assigned: {assignment.Ip}:{assignment.Port}");
+        //Debug.Log($"Ticket Assigned: {assignment.Ip}:{assignment.Port}");
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetConnectionData(assignment.Ip, (ushort)assignment.Port);
         NetworkManager.Singleton.StartClient();
     }  

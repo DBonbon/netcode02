@@ -44,20 +44,16 @@ public class PlayerManager : NetworkBehaviour
     public void LoadPlayerDataLoaded(List<PlayerData> loadedPlayerDataList)
     {
         this.playerDataList = loadedPlayerDataList;
-        Debug.Log($"PlayerManager: loaded {loadedPlayerDataList.Count} players.");
-        //Debug.Log("Player data loaded into PlayerManager.");
     }
 
     private void Start()
     {
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
-        //Debug.Log("starting playerManager");
     }
 
     public void OnClientConnected(ulong clientId)
     {
         if (!IsServer || gameInitialized) return;
-        Debug.Log("OnClientConnected started");
         connectedPlayers++;
         var playerObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(clientId);
         if (playerObject != null)
@@ -70,25 +66,17 @@ public class PlayerManager : NetworkBehaviour
                 player.InitializePlayer(playerData.playerName, playerData.playerDbId, playerData.playerImagePath);
                 BroadcastPlayerNamesToNewClient(clientId);
                 players1.Add(player);
-                Debug.Log($"num of players after: {players1.Count}");
 
                 // Update dictionaries
                 clientIdToPlayerName[clientId] = player.playerName.Value.ToString();
-                Debug.Log($"dictionary playername: {clientIdToPlayerName[clientId]}");
                 playerNameToClientId[player.playerName.Value.ToString()] = clientId;
-                Debug.Log($"dictionary playername to id: {clientId}");
 
                 // Test retrieval
-                //string testRetrievalName = GetPlayerNameByClientId(clientId);
-                //Debug.Log($"Test retrieval post-update - Client ID: {clientId}, Player Name: {testRetrievalName}");
-                // Add a debug log here to confirm the dictionary is updated
-                Debug.Log($"[PlayerManager] Added player with Client ID: {clientId} and Name: {player.playerName.Value}");
-
+                
                 if (players1.Count == playerDataList.Count && !gameInitialized) 
                 {
                     gameInitialized = true;
                     StartGameLogic();
-                    Debug.Log("calling StartGameLogic");
                 }
             }
         }
@@ -105,9 +93,6 @@ public class PlayerManager : NetworkBehaviour
 
     private void StartGameLogic() 
     {
-        Debug.Log("running StartGameLogic");
-        //PrintPlayersListDetails();
-        //UpdatePlayerToAsk();
         CardManager.Instance.DistributeCards(players1);
         TurnManager.Instance.StartTurnManager();
         PrintPlayersListDetails();
@@ -115,11 +100,10 @@ public class PlayerManager : NetworkBehaviour
 
     private void UpdatePlayerToAsk()
     {
-        Debug.Log("UpdatePlayerToAsk started");
         // Iterate through each player in the 'players1' list
         foreach (var player in players1)
         {
-            Debug.Log($"UpdatePlayerToAsk playerName; {player.playerName.Value}");
+            //Debug.Log($"UpdatePlayerToAsk playerName; {player.playerName.Value}");
             // Call a method on the player instance to update its PlayerToAsk list
             player.UpdatePlayerToAskList(players1);
         }
@@ -128,18 +112,16 @@ public class PlayerManager : NetworkBehaviour
     //testing players1 list
     public void PrintPlayersListDetails()
     {
-        Debug.Log($"Printing details of all players1 in the PlayerManager list. Total players1: {players1.Count}");
+        ////Debug.Log($"Printing details of all players1 in the PlayerManager list. Total players1: {players1.Count}");
         
         foreach (var player in players1)
         {
-            Debug.Log($"Player Details - OwnerClientId: {player.OwnerClientId}");
-
             // Using reflection to iterate through all properties
             PropertyInfo[] properties = player.GetType().GetProperties();
             foreach (PropertyInfo property in properties)
             {
                 object value = property.GetValue(player, null);
-                Debug.Log($"GetValue of properties name: {property.Name}: {value}");
+                //Debug.Log($"GetValue of properties name: {property.Name}: {value}");
             }
 
             
@@ -148,7 +130,7 @@ public class PlayerManager : NetworkBehaviour
             foreach (FieldInfo field in fields)
             {
                 object value = field.GetValue(player);
-                Debug.Log($"{field.Name}: {value}");
+                //Debug.Log($"{field.Name}: {value}");
             }
         }
 
@@ -156,7 +138,7 @@ public class PlayerManager : NetworkBehaviour
         {
             // Directly accessing the playerName NetworkVariable
             var playerName = playeri.playerName.Value; // Adjust PlayerName to match the actual variable name in your Player class
-            Debug.Log($"Player Name from the players list: {playerName}");
+            //Debug.Log($"Player Name from the players list: {playerName}");
 
             // If you have other properties or fields to log, you can include them here as well
         }
@@ -214,20 +196,20 @@ public class PlayerManager : NetworkBehaviour
     public string GetPlayerNameByClientId(ulong clientId)
     {
         // New diagnostic logging
-        Debug.Log("Current client ID to Player Name mappings:");
+        //Debug.Log("Current client ID to Player Name mappings:");
         foreach (var entry in clientIdToPlayerName)
         {
-            Debug.Log($"Client ID: {entry.Key}, Player Name: {entry.Value}");
+            //Debug.Log($"Client ID: {entry.Key}, Player Name: {entry.Value}");
         }
 
         if (clientIdToPlayerName.TryGetValue(clientId, out string playerName))
         {
-            Debug.Log($"Retrieved from dictionary - Client ID: {clientId}, Player Name: {playerName}");
+            //Debug.Log($"Retrieved from dictionary - Client ID: {clientId}, Player Name: {playerName}");
             return playerName;
         }
         else
         {
-            Debug.Log($"Failed to retrieve - Client ID: {clientId} resulted in Unknown Player");
+            //Debug.Log($"Failed to retrieve - Client ID: {clientId} resulted in Unknown Player");
             return "Unknown Player"; // Fallback if the clientId is not found
         }
     }

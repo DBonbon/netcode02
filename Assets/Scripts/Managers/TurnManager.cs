@@ -57,10 +57,10 @@ public class TurnManager : NetworkBehaviour
 
         foreach (var p in players)
         {
-            Debug.Log($"[TurnManager] Player ready: {p.playerName.Value}");
+            //Debug.Log($"[TurnManager] Player ready: {p.playerName.Value}");
         }
 
-        Debug.Log("turnmanmager started");
+        //Debug.Log("turnmanmager started");
         AssignTurnToPlayer();
         StartTurnLoop();
     }
@@ -68,7 +68,7 @@ public class TurnManager : NetworkBehaviour
 
     private void AssignTurnToPlayer()
     {
-        Debug.Log("AssignTurnToPlayer is called");
+        //Debug.Log("AssignTurnToPlayer is called");
         //var players = PlayerManager.Instance.players;
         if (players.Count == 0) return;
 
@@ -85,23 +85,23 @@ public class TurnManager : NetworkBehaviour
         players[randomIndex].UpdatePlayerToAskList(players);
         players[randomIndex].UpdateCardsPlayerCanAsk();
 
-        Debug.Log($"Turn assigned to player: {players[randomIndex].playerName.Value}");
+        //Debug.Log($"Turn assigned to player: {players[randomIndex].playerName.Value}");
     }
 
     private void StartTurnLoop()
     {
         if (!isInitialized)
         {
-            Debug.Log("Turn Manager Started");
+            //Debug.Log("Turn Manager Started");
             //AssignTurnToPlayer();
             isInitialized = true;
             currentPlayer = players.Find(player => player.HasTurn.Value);
-            Debug.Log($"call TurnLoop: {currentPlayer.playerName.Value}");
+            //Debug.Log($"call TurnLoop: {currentPlayer.playerName.Value}");
 
             if (currentPlayer != null)
             {
                 StartCoroutine(TurnLoop());
-                Debug.Log($"call coroutine TurnLoop: {currentPlayer.playerName.Value}");
+                //Debug.Log($"call coroutine TurnLoop: {currentPlayer.playerName.Value}");
             }
             else
             {
@@ -112,52 +112,52 @@ public class TurnManager : NetworkBehaviour
 
     private System.Collections.IEnumerator TurnLoop()
     {
-        Debug.Log("Turn loop is rusnning");
+        //Debug.Log("Turn loop is rusnning");
         while (true)
         {
-            Debug.Log($"Turn loop currewnt player: {currentPlayer.playerName.Value} with turn status: {currentPlayer.HasTurn.Value}");
+            //Debug.Log($"Turn loop currewnt player: {currentPlayer.playerName.Value} with turn status: {currentPlayer.HasTurn.Value}");
             if (currentPlayer.HasTurn.Value)
             {
                 if (!hasHandledCurrentPlayer)
                 {
-                    Debug.Log($"Turn loop hasHandledCurrentPlayer current player: {currentPlayer.playerName.Value} whith turn status: {currentPlayer.HasTurn.Value} and hashandlecurretplay flag is: {hasHandledCurrentPlayer}");
+                    //Debug.Log($"Turn loop hasHandledCurrentPlayer current player: {currentPlayer.playerName.Value} whith turn status: {currentPlayer.HasTurn.Value} and hashandlecurretplay flag is: {hasHandledCurrentPlayer}");
                     HandlePlayerTurn(currentPlayer);
-                    Debug.Log($"Turn loop hasHandledCurrentPlayer1 current player: {currentPlayer.playerName.Value} whith turn status: {currentPlayer.HasTurn.Value}");
-                    Debug.Log($" hashandlecurretplay flag is: {hasHandledCurrentPlayer}");
+                    //Debug.Log($"Turn loop hasHandledCurrentPlayer1 current player: {currentPlayer.playerName.Value} whith turn status: {currentPlayer.HasTurn.Value}");
+                    //Debug.Log($" hashandlecurretplay flag is: {hasHandledCurrentPlayer}");
                     hasHandledCurrentPlayer = true;
-                    Debug.Log($" hashandlecurretplay1 flag is: {hasHandledCurrentPlayer}");
-                    Debug.Log($"Turn loop hasHandledCurrentPlayer1 current player: {currentPlayer.playerName.Value} ad hashandlecurretplay flag is: {hasHandledCurrentPlayer}");
+                    //Debug.Log($" hashandlecurretplay1 flag is: {hasHandledCurrentPlayer}");
+                    //Debug.Log($"Turn loop hasHandledCurrentPlayer1 current player: {currentPlayer.playerName.Value} ad hashandlecurretplay flag is: {hasHandledCurrentPlayer}");
                 }
             }
 
             if (!currentPlayer.HasTurn.Value)
             {
-                Debug.Log($"Turn loop hasHandledCurrentPlayer current player: {currentPlayer.playerName.Value} has Turn: {currentPlayer.HasTurn.Value}");
+                //Debug.Log($"Turn loop hasHandledCurrentPlayer current player: {currentPlayer.playerName.Value} has Turn: {currentPlayer.HasTurn.Value}");
                 hasHandledCurrentPlayer = false;
                 NextCurrentPlayer();
             }
             // Debug log to check if the loop is still running
-            Debug.Log("Turn loop is still running");
+            //Debug.Log("Turn loop is still running");
             yield return null;
         }
         // Debug log to check if the loop terminates
-        Debug.Log("Turn loop terminated");
+        //Debug.Log("Turn loop terminated");
     }
 
     public void OnEventGuessClick(ulong playerId, NetworkVariable<int> cardId)
     {
         //NetworkVariable<int> networkCardId =???(cardId); 
-        Debug.Log($"The playerid value is: {playerId}, and cardid: {cardId}");
+        //Debug.Log($"The playerid value is: {playerId}, and cardid: {cardId}");
         Card selectedCard = CardManager.Instance.FetchCardById(cardId);
-        Debug.Log($"oneventguessclick selected card: {selectedCard.cardName.Value}");
+        //Debug.Log($"oneventguessclick selected card: {selectedCard.cardName.Value}");
         Player1 selectedPlayer = players.Find(player => player.OwnerClientId == playerId);
-        Debug.Log($"oneventguessclick selected player: {selectedPlayer.playerName.Value}");
+        //Debug.Log($"oneventguessclick selected player: {selectedPlayer.playerName.Value}");
         this.selectedCard = selectedCard;
         this.selectedPlayer = selectedPlayer;
         if (currentPlayer != null && !isDrawingCard) //
         {
             HandlePlayerTurn(currentPlayer);
-            Debug.Log($"HandlePlayerTurn currentPlayer is: {currentPlayer}");
+            //Debug.Log($"HandlePlayerTurn currentPlayer is: {currentPlayer}");
         }
         else
         {
@@ -168,23 +168,23 @@ public class TurnManager : NetworkBehaviour
     private void HandlePlayerTurn(Player1 currentPlayer)
     {
         //MakeGuess(currentPlayer);
-        Debug.Log("HandlePlayerTurn is called");
-        Debug.Log($"currentPlazer is: {currentPlayer}");
-        Debug.Log($"Selected Card: {selectedCard.cardName.Value}");
+        //Debug.Log("HandlePlayerTurn is called");
+        //Debug.Log($"currentPlazer is: {currentPlayer}");
+        //Debug.Log($"Selected Card: {selectedCard.cardName.Value}");
         ActivateTurnUI();
-        Debug.Log("ActivateTurnUI is called");
+        //Debug.Log("ActivateTurnUI is called");
 
         if (selectedCard != null && selectedPlayer != null)
         {
             GuessCheck(selectedCard, selectedPlayer);
-            Debug.Log("GuessCheck is called");
+            //Debug.Log("GuessCheck is called");
             // Reset selectedCard and selectedPlayer to null
             selectedCard = null;
             selectedPlayer = null;
         }
         else
         {
-            Debug.Log($"handle player method waits for selectedCard: {selectedCard} and/or selectedPlayer {selectedPlayer}");
+            //Debug.Log($"handle player method waits for selectedCard: {selectedCard} and/or selectedPlayer {selectedPlayer}");
         }
     }
 
@@ -192,18 +192,18 @@ public class TurnManager : NetworkBehaviour
     {
         // Toggle the state of the activateTurnUIFlag each time the method is called
         activateTurnUIFlag = !activateTurnUIFlag;
-        Debug.Log("starting Activating Turn UI for player: " + currentPlayer.name);
+        //Debug.Log("starting Activating Turn UI for player: " + currentPlayer.name);
 
         // Based on the flag state, you can perform different actions
         if (activateTurnUIFlag)
         {
             // Code to activate or display the turn UI
-            Debug.Log("Activating Turn UI for player: " + currentPlayer.name);
+            //Debug.Log("Activating Turn UI for player: " + currentPlayer.name);
         }
         else
         {
             // Code to deactivate or hide the turn UI
-            Debug.Log("Deactivating Turn UI for player: " + currentPlayer.name);
+            //Debug.Log("Deactivating Turn UI for player: " + currentPlayer.name);
         }
 
         // You can also display messages or perform other operations here
@@ -212,7 +212,7 @@ public class TurnManager : NetworkBehaviour
     private void GuessCheck(Card selectedCard, Player1 selectedPlayer)
     {
         ActivateTurnUI();
-        Debug.Log("GuessCheck is running");
+        //Debug.Log("GuessCheck is running");
         if (selectedPlayer.HandCards.Contains(selectedCard))
         {
             CorrectGuess();
@@ -225,13 +225,13 @@ public class TurnManager : NetworkBehaviour
 
     private void CorrectGuess()
     {
-        Debug.Log("AskForCar guess is correct");
+        //Debug.Log("AskForCar guess is correct");
         TransferCard(selectedCard, currentPlayer);
-        Debug.Log($"TransferCard is correct: {selectedCard.cardName.Value}");
+        //Debug.Log($"TransferCard is correct: {selectedCard.cardName.Value}");
         CheckForQuartets(); 
         selectedCard = null;
         selectedPlayer = null;
-        Debug.Log($"Selected Card: {selectedCard.cardName.Value}");  
+        //Debug.Log($"Selected Card: {selectedCard.cardName.Value}");  
         //HandlePlayerTurn(currentPlayer);*/
         
         // If the guess is correct and the player's hand isn't empty, allow another guess.
@@ -255,21 +255,21 @@ public class TurnManager : NetworkBehaviour
 
     private void WrongGuess()
     {
-        Debug.Log("ask for card, player doesn't have card");
+        //Debug.Log("ask for card, player doesn't have card");
         DisplayMessage($"{selectedPlayer.playerName} does not have {selectedCard.cardName}.");
         DrawCardFromDeck(() => 
         {
             // Actions to take after drawing the card, if any.
             // For example, you might want to update some UI elements here to reflect the new card in the player's hand.
             
-            Debug.Log("ask for card, call end turn");
+            //Debug.Log("ask for card, call end turn");
             EndTurn(); // This is now inside the callback, ensuring it's called after drawing a card.
         });
     }
     
     private void TransferCard(Card selectedCard, Player1 curPlayer)
     {
-        Debug.Log("TransferCard is correct");    
+        //Debug.Log("TransferCard is correct");    
         selectedPlayer.RemoveCardFromHand(selectedCard);
         //selectedPlayer.SendCardIDsToClient();
         currentPlayer.AddCardToHand(selectedCard);
@@ -284,12 +284,12 @@ public class TurnManager : NetworkBehaviour
     private void EndTurn()
     {
         NextCurrentPlayer();
-        Debug.Log("end turn is running");
+        //Debug.Log("end turn is running");
     }
 
     private void NextCurrentPlayer()
     {
-        Debug.Log("next current player is called");
+        //Debug.Log("next current player is called");
         var players = PlayerManager.Instance.players1;
         if (players.Count == 0) return;
 
@@ -315,7 +315,7 @@ public class TurnManager : NetworkBehaviour
             currentPlayer.UpdateCardsPlayerCanAsk();
             
             // Log or perform additional actions as necessary.
-            Debug.Log($"Turn assigned to player: {currentPlayer.playerName.Value}");
+            //Debug.Log($"Turn assigned to player: {currentPlayer.playerName.Value}");
         }
         else
         {
@@ -326,7 +326,7 @@ public class TurnManager : NetworkBehaviour
 
     private void CheckForQuartets()
     {
-        Debug.Log("check for quartets is called");
+        //Debug.Log("check for quartets is called");
         currentPlayer.CheckForQuartets(); // Implement your quartet-checking logic here
         // Check if the player's hand is empty after quartets are checked.
         if (IsPlayerHandEmpty(currentPlayer) &&  DeckManager.Instance.CurrentDeck.DeckCards.Count == 0)
@@ -340,12 +340,12 @@ public class TurnManager : NetworkBehaviour
     {
         // Your DisplayMessage logic here
         // ...
-        Debug.Log("Display Message: " + message);
+        //Debug.Log("Display Message: " + message);
     }
 
     /*public void DrawCardFromDeck()
     {
-        Debug.Log("draw card from deck is called");
+        //Debug.Log("draw card from deck is called");
         if (CardManager.Instance != null && currentPlayer != null)
         {
             CardManager.Instance.DrawCardFromDeck(currentPlayer);
@@ -357,7 +357,7 @@ public class TurnManager : NetworkBehaviour
     }*/
     public void DrawCardFromDeck(Action onCardDrawn)
     {
-        Debug.Log("draw card from deck is called");
+        //Debug.Log("draw card from deck is called");
         // Assume this method involves adding a card to currentPlayer's hand
         CardManager.Instance.DrawCardFromDeck(currentPlayer);
         
@@ -387,7 +387,7 @@ public class TurnManager : NetworkBehaviour
 
     private void GameEnd()
     {
-        Debug.Log($"{Time.time}: Game Ended");
+        //Debug.Log($"{Time.time}: Game Ended");
         // Call the method to display end game results
         //gameFlowManager.DisplayEndGameResults();
     }

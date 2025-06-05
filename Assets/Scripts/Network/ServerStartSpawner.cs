@@ -27,7 +27,7 @@ public class ServerStartSpawner : MonoBehaviour
         {
             GameObject spawnedObject = Instantiate(prefabToSpawn);
             spawnedObject.GetComponent<NetworkObject>().Spawn();
-            Debug.Log("Prefab spawned on server start.");
+            //Debug.Log("Prefab spawned on server start.");
         }
     }
 }

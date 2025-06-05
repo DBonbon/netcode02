@@ -33,8 +33,6 @@ public class DataManager : MonoBehaviour
     {
         LoadPlayersFromJson();
         LoadCardsFromJson();
-        Debug.Log($"{Time.time}:datamanager.start method has started");
-        Debug.Log("DataManager: loading card and player data.");
     }
 
     private void LoadPlayersFromJson()
@@ -46,7 +44,6 @@ public class DataManager : MonoBehaviour
 
     private IEnumerator LoadPlayersData(string path)
     {
-        Debug.Log($"{Time.time}:LoadPlayersData started.");
         string json;
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
@@ -76,9 +73,7 @@ public class DataManager : MonoBehaviour
         // Notify subscribers that player data is loaded
         OnPlayerDataLoaded?.Invoke(playerDataList);
         playerDataLoaded = true;
-        //Debug.Log("player loaded from dataM");
         CheckStartManagers(); // Check if both player and card data are loaded
-        Debug.Log($"{Time.time}:LoadPlayersData ended.");
     }
 
     [System.Serializable]

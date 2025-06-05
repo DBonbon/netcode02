@@ -25,7 +25,7 @@ public class Deck : NetworkBehaviour
             if (IsServer && cardComponent != null)
             {
                 DeckCards.Add(cardComponent);
-                Debug.Log($"Card {cardComponent.name} added to player to deckCards list.");
+                //Debug.Log($"Card {cardComponent.name} added to player to deckCards list.");
 
                 // Prepare a list of card IDs to send to the UI
                 List<int> cardIDs = new List<int>();

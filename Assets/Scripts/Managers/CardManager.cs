@@ -37,7 +37,6 @@ public class CardManager : MonoBehaviour
        allCardsList = loadedCardDataList;
         ShuffleCards();
         InitializeCardUIPool(); // Ensure CardUI pool is initialized after loading data
-        Debug.Log($"CardManager: loaded {loadedCardDataList.Count} cards.");
     }
 
     private void InitializeCardUIPool()
@@ -131,9 +130,7 @@ public class CardManager : MonoBehaviour
                     {
                         Debug.LogError("DeckInstance is null.");
                     }
-                    
-                    //Debug.Log($"Card initialized and its Name is: {cardData.cardName}");
-                }
+                                    }
             }
         }
     }
@@ -159,7 +156,6 @@ public class CardManager : MonoBehaviour
 
     public void DistributeCards(List<Player1> players1) 
     {       
-        //Debug.Log("distributecards started");
         int cardsPerPlayer = 5; // Assuming 5 cards per player
 
         Deck deck = DeckManager.Instance.DeckInstance.GetComponent<Deck>();
@@ -173,7 +169,6 @@ public class CardManager : MonoBehaviour
                 Card card = deck.RemoveCardFromDeck(); // This now returns a Card object
                 if (card != null) {
                     player.AddCardToHand(card); // Adjusted to accept Card objects
-                    //Debug.Log("playerAddCardToHand Card");
                 } else {
                     Debug.LogWarning("Deck is out of cards.");
                     break; // Stop if there are no more cards

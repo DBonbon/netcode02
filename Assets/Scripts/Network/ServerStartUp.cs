@@ -96,7 +96,7 @@ public class ServerStartUp : MonoBehaviour
             _matchmakingPayload = await GetMatchmakerPayload(_multiplayServiceTimeout);
             if (_matchmakingPayload != null)
             {
-                Debug.Log($"Got payload: {_matchmakingPayload}");
+                //Debug.Log($"Got payload: {_matchmakingPayload}");
                 await StartBackfill(_matchmakingPayload);
             }
             else
@@ -135,7 +135,7 @@ public class ServerStartUp : MonoBehaviour
 
     private void OnMultiplayAllocation(MultiplayAllocation allocation)
     {
-        Debug.Log($"OnAllocation: {allocation.AllocationId}");
+        //Debug.Log($"OnAllocation: {allocation.AllocationId}");
         if (string.IsNullOrEmpty(allocation.AllocationId)) return;
         _allocationId = allocation.AllocationId;
     }
@@ -143,13 +143,13 @@ public class ServerStartUp : MonoBehaviour
     private async Task<string> AwaitAllocationId()
     {
         var config = _multiplayService.ServerConfig;
-        Debug.Log("Awaiting allocation. Server config is:\n" +
+        /*Debug.Log("Awaiting allocation. Server config is:\n" +
             $" -ServerId:{config.ServerId}\n" +
             $" -AllocationId: {config.AllocationId}\n" +
             $" -Port: {config.Port}\n" +
             $" -QPort: {config.QueryPort}\n" +
             $" -logs: {config.ServerLogDirectory}\n"
-            );
+            );*/
 
         while (string.IsNullOrEmpty(_allocationId))
         {
@@ -172,7 +172,7 @@ public class ServerStartUp : MonoBehaviour
         {
             var payloadAllocation = await MultiplayService.Instance.GetPayloadAllocationFromJsonAs<MatchmakingResults>();
             var modelAsJson = JsonConvert.SerializeObject(payloadAllocation, Formatting.Indented);
-            Debug.Log($"{nameof(GetMatchmakerAllocationPayloadAsync)}:\n{modelAsJson}");
+            //Debug.Log($"{nameof(GetMatchmakerAllocationPayloadAsync)}:\n{modelAsJson}");
             return payloadAllocation;
         }
         catch (Exception ex)
