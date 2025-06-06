@@ -4,6 +4,7 @@ using UnityEngine;
 public class QuartetManager : MonoBehaviour
 {
     public static QuartetManager Instance;
+    [SerializeField] private Canvas targetCanvas;
     public GameObject quartetPrefab;
     public GameObject QuartetInstance { get; private set; } // Store the spawned quartet instance
 
@@ -35,11 +36,19 @@ public class QuartetManager : MonoBehaviour
 
     private void SpawnQuartetPrefab()
     {
-        if (NetworkManager.Singleton.IsServer && quartetPrefab != null)
+        if (NetworkManager.Singleton.IsServer && quartetPrefab != null && targetCanvas != null)
         {
-            QuartetInstance = Instantiate(quartetPrefab);
+            // Instantiate under targetCanvas
+            QuartetInstance = Instantiate(quartetPrefab, targetCanvas.transform);
+
+            // Spawn on network
             QuartetInstance.GetComponent<NetworkObject>().Spawn();
+
             Debug.Log("Quartet prefab spawned on server start.");
+        }
+        else
+        {
+            Debug.LogError("Cannot spawn QuartetPrefab — check quartetPrefab and targetCanvas.");
         }
     }
 }
