@@ -327,7 +327,7 @@ public class TurnManager : NetworkBehaviour
     private void CheckForQuartets()
     {
         //Debug.Log("check for quartets is called");
-        currentPlayer.CheckForQuartets(); // Implement your quartet-checking logic here
+        currentPlayer.CheckForQuartets(); // Implement your quartets-checking logic here
         // Check if the player's hand is empty after quartets are checked.
         if (IsPlayerHandEmpty(currentPlayer) &&  DeckManager.Instance.CurrentDeck.DeckCards.Count == 0)
         {

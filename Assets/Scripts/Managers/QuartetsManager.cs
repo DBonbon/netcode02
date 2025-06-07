@@ -1,12 +1,16 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class QuartetManager : MonoBehaviour
+public class QuartetsManager : MonoBehaviour
 {
-    public static QuartetManager Instance;
+    public static QuartetsManager Instance;
+
+    [SerializeField] private GameObject quartetsUIPrefab;
     [SerializeField] private Canvas targetCanvas;
-    public GameObject quartetPrefab;
-    public GameObject QuartetInstance { get; private set; } // Store the spawned quartet instance
+    [SerializeField] private GameObject quartetsPrefab;
+
+    public GameObject QuartetsInstance { get; private set; } // Store the spawned Quartets instance
+    public Quartets CurrentQuartets { get; private set; }
 
     private void Awake()
     {
@@ -23,32 +27,38 @@ public class QuartetManager : MonoBehaviour
 
     private void Start()
     {
-        NetworkManager.Singleton.OnServerStarted += SpawnQuartetPrefab;
+        NetworkManager.Singleton.OnServerStarted += SpawnQuartetsPrefab;
     }
 
     private void OnDestroy()
     {
         if (NetworkManager.Singleton != null)
         {
-            NetworkManager.Singleton.OnServerStarted -= SpawnQuartetPrefab;
+            NetworkManager.Singleton.OnServerStarted -= SpawnQuartetsPrefab;
         }
     }
 
-    private void SpawnQuartetPrefab()
+    private void SpawnQuartetsPrefab()
     {
-        if (NetworkManager.Singleton.IsServer && quartetPrefab != null && targetCanvas != null)
+        if (NetworkManager.Singleton.IsServer && quartetsPrefab != null && targetCanvas != null && quartetsUIPrefab != null)
         {
-            // Instantiate under targetCanvas
-            QuartetInstance = Instantiate(quartetPrefab, targetCanvas.transform);
+            // 1️⃣ Instantiate QuartetsPrefab (logic object)
+            QuartetsInstance = Instantiate(quartetsPrefab); // NO parent
+            CurrentQuartets = QuartetsInstance.GetComponent<Quartets>();
 
-            // Spawn on network
-            QuartetInstance.GetComponent<NetworkObject>().Spawn();
+            // 2️⃣ Spawn the network object
+            QuartetsInstance.GetComponent<NetworkObject>().Spawn();
 
-            Debug.Log("Quartet prefab spawned on server start.");
+            // 3️⃣ Instantiate QuartetsUIPrefab under targetCanvas
+            GameObject quartetsUIInstance = Instantiate(quartetsUIPrefab, targetCanvas.transform);
+            QuartetsUI quartetsUIComponent = quartetsUIInstance.GetComponent<QuartetsUI>();
+
+            // 4️⃣ Link QuartetsUI to Quartets logic object
+            CurrentQuartets.SetQuartetsUI(quartetsUIComponent);
         }
         else
         {
-            Debug.LogError("Cannot spawn QuartetPrefab — check quartetPrefab and targetCanvas.");
+            Debug.LogError("Cannot spawn QuartetsPrefab or QuartetsUIPrefab — check quartetsPrefab, quartetsUIPrefab, and targetCanvas.");
         }
     }
 }

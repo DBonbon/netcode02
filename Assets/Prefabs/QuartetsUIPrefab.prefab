@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27dd3603a3688654e8b522ece7855d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quartetDisplayTransform: {fileID: 0}
+  quartetDisplayTransform: {fileID: 8918614890630187428}
 --- !u!1 &5692922298449566626
 GameObject:
   m_ObjectHideFlags: 0

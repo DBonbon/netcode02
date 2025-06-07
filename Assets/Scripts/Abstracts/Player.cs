@@ -267,18 +267,18 @@ using System;
         {
             //Debug.Log("Moving cards to quartets area.");
 
-            Quartet quartetZone = QuartetManager.Instance.QuartetInstance.GetComponent<Quartet>();
+            Quartets quartetZone = QuartetsManager.Instance.QuartetsInstance.GetComponent<Quartets>();
             if (quartetZone == null)
             {
-                Debug.LogError("Quartet zone not found.");
+                Debug.LogError("Quartets zone not found.");
                 return;
             }
 
             foreach (var card in quartet)
             {
                 RemoveCardFromHand(card);
-                quartetZone.AddCardToQuartet(card);
-                Debug.Log($"Moved card {card.cardName} to Quartet.");
+                quartetZone.AddCardToQuartets(card);
+                Debug.Log($"Moved card {card.cardName} to Quartets.");
             }
             IncrementScore();
 
