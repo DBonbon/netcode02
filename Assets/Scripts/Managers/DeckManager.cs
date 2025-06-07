@@ -10,6 +10,7 @@ public class DeckManager : MonoBehaviour
     // Property to access the Deck component of the DeckInstance
     public Deck CurrentDeck { get; private set; }
 
+    [SerializeField] private GameObject deckUIPrefab;
     [SerializeField] private Canvas targetCanvas; // Added this line — reference to Canvas
 
     private void Awake()
@@ -40,20 +41,26 @@ public class DeckManager : MonoBehaviour
 
     private void SpawnDeckPrefab()
     {
-        if (NetworkManager.Singleton.IsServer && deckPrefab != null && targetCanvas != null)
+        if (NetworkManager.Singleton.IsServer && deckPrefab != null && targetCanvas != null && deckUIPrefab != null)
         {
-            // Instantiate deckPrefab under targetCanvas
-            DeckInstance = Instantiate(deckPrefab, targetCanvas.transform);
-            
-            // Get the Deck component
+            // 1️⃣ Instantiate DeckPrefab (logic object)
+            DeckInstance = Instantiate(deckPrefab); // NO parent
             CurrentDeck = DeckInstance.GetComponent<Deck>();
-            
-            // Spawn the network object
+
+            // 2️⃣ Spawn the network object
             DeckInstance.GetComponent<NetworkObject>().Spawn();
+
+            // 3️⃣ Instantiate DeckUIPrefab under targetCanvas
+            GameObject deckUIInstance = Instantiate(deckUIPrefab, targetCanvas.transform);
+            DeckUI deckUIComponent = deckUIInstance.GetComponent<DeckUI>();
+
+            // 4️⃣ Link DeckUI to Deck logic object
+            CurrentDeck.SetDeckUI(deckUIComponent);
         }
         else
         {
-            Debug.LogError("Cannot spawn DeckPrefab — check deckPrefab and targetCanvas.");
+            Debug.LogError("Cannot spawn DeckPrefab or DeckUIPrefab — check deckPrefab, deckUIPrefab, and targetCanvas.");
         }
     }
+
 }

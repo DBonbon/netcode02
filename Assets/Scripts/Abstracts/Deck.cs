@@ -16,6 +16,12 @@ public class Deck : NetworkBehaviour
         base.OnNetworkSpawn();
         deckUI = GetComponent<DeckUI>(); // Get the DeckUI component
     }
+    
+    public void SetDeckUI(DeckUI newDeckUI)
+    {
+        deckUI = newDeckUI;
+    }
+
 
     public void AddCardToDeck(GameObject cardGameObject)
     {
@@ -34,7 +40,7 @@ public class Deck : NetworkBehaviour
                     cardIDs.Add(card.cardId.Value);
                 }
 
-                
+
                 // Update the UI with the list of card IDs
                 if (deckUI != null)
                 {

@@ -372,7 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c8a33a9de53754082e5d820bcb5966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckPrefab: {fileID: 8000620996680540705, guid: fdf8aa523a247af4e9fb40b3c76d65ba, type: 3}
+  deckPrefab: {fileID: 4880284546066688394, guid: f2a89048324e99b40b82af8f7dba194d, type: 3}
+  deckUIPrefab: {fileID: 8000620996680540705, guid: fdf8aa523a247af4e9fb40b3c76d65ba, type: 3}
   targetCanvas: {fileID: 377688400}
 --- !u!114 &158141710
 MonoBehaviour:
@@ -387,7 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetCanvas: {fileID: 377688400}
-  quartetPrefab: {fileID: 5330293404449515339, guid: 600668fa993c0dc438f62dacf0af1a48, type: 3}
+  quartetPrefab: {fileID: 2982291069951487821, guid: a6fd5233b720db54dbf58c0366e3868f, type: 3}
 --- !u!114 &158141711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2475,7 +2476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1958212497
 RectTransform:
   m_ObjectHideFlags: 0
