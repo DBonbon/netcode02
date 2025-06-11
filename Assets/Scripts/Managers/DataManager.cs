@@ -84,7 +84,7 @@ public class DataManager : MonoBehaviour
 
     private void LoadCardsFromJson()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, "cards.json");
+        string path = Path.Combine(Application.streamingAssetsPath, "animals.json");
         StartCoroutine(LoadCardsData(path));
         //string apiUrl = "http://localhost:8081/wt/api/nextjs/v1/page_by_path/?html_path=authors/yoga/unity";
         //StartCoroutine(LoadCardsDataFromJson(apiUrl));

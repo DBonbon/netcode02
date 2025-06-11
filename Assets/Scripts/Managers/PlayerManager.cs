@@ -13,7 +13,8 @@ public class PlayerManager : NetworkBehaviour
     private bool gameInitialized = false; // Flag to track if the game start logic has been executed
     public List<Player1> players1 = new List<Player1>();
     private List<PlayerData> playerDataList;
-    [SerializeField] private Transform deckUIContainer;
+    [SerializeField] private GameObject playerUIPrefab;
+    [SerializeField] private Canvas targetCanvas;
 
     private Dictionary<ulong, string> clientIdToPlayerName = new Dictionary<ulong, string>();
     private Dictionary<string, ulong> playerNameToClientId = new Dictionary<string, ulong>();
@@ -44,6 +45,13 @@ public class PlayerManager : NetworkBehaviour
     public void LoadPlayerDataLoaded(List<PlayerData> loadedPlayerDataList)
     {
         this.playerDataList = loadedPlayerDataList;
+
+        // Debug log
+        Debug.Log($"PlayerData loaded. Count: {playerDataList.Count}");
+        foreach (var pd in playerDataList)
+        {
+            Debug.Log($"PlayerData: Name={pd.playerName}, DbId={pd.playerDbId}, ImagePath={pd.playerImagePath}");
+        }
     }
 
     private void Start()
@@ -63,6 +71,15 @@ public class PlayerManager : NetworkBehaviour
             {
                 string playerImagePath = "Images/character_01"; // Default image path
                 var playerData = playerDataList[connectedPlayers - 1]; // Example, adjust as necessary
+
+                // Instantiate PlayerUI FIRST
+                GameObject playerUIInstance = Instantiate(playerUIPrefab, targetCanvas.transform);
+                PlayerUI playerUIComponent = playerUIInstance.GetComponent<PlayerUI>();
+                player.SetPlayerUI(playerUIComponent);
+                // Force CardUIPool init on client side if needed
+                CardManager.Instance.EnsureCardUIPoolInitializedIfNeeded();
+
+                // Set player attributes 
                 player.InitializePlayer(playerData.playerName, playerData.playerDbId, playerData.playerImagePath);
                 BroadcastPlayerNamesToNewClient(clientId);
                 players1.Add(player);
@@ -72,15 +89,33 @@ public class PlayerManager : NetworkBehaviour
                 playerNameToClientId[player.playerName.Value.ToString()] = clientId;
 
                 // Test retrieval
-                
                 if (players1.Count == playerDataList.Count && !gameInitialized) 
                 {
                     gameInitialized = true;
-                    StartGameLogic();
+                    StartCoroutine(WaitForDeckAndStartGame());
                 }
             }
         }
     }
+
+    private System.Collections.IEnumerator WaitForDeckAndStartGame()
+    {
+        Debug.Log("WaitForDeckAndStartGame → Waiting for deck to be ready.");
+
+        // Wait until Deck.DeckCards.Count == expected number (example: 36 for Quartets)
+        Deck deck = DeckManager.Instance.DeckInstance.GetComponent<Deck>();
+
+        while (deck == null || deck.DeckCards.Count < CardManager.Instance.allCardsList.Count)
+        {
+            Debug.Log($"Waiting... DeckCards.Count = {(deck != null ? deck.DeckCards.Count : 0)} / Expected = {CardManager.Instance.allCardsList.Count}");
+            yield return null; // wait one frame
+            deck = DeckManager.Instance.DeckInstance.GetComponent<Deck>(); // re-fetch in case it was not ready
+        }
+
+        Debug.Log("Deck is ready. Starting game logic.");
+        StartGameLogic();
+    }
+
 
     private void BroadcastPlayerNamesToNewClient(ulong newClientId)
     {
@@ -93,6 +128,11 @@ public class PlayerManager : NetworkBehaviour
 
     private void StartGameLogic() 
     {
+        Debug.Log($"StartGameLogic → Players1.Count = {players1.Count}");
+        foreach (var player in players1)
+        {
+            Debug.Log($"StartGameLogic → Player: OwnerClientId={player.OwnerClientId}, Name={player.playerName.Value}");
+        }
         CardManager.Instance.DistributeCards(players1);
         TurnManager.Instance.StartTurnManager();
         PrintPlayersListDetails();
@@ -123,8 +163,7 @@ public class PlayerManager : NetworkBehaviour
                 object value = property.GetValue(player, null);
                 //Debug.Log($"GetValue of properties name: {property.Name}: {value}");
             }
-
-            
+         
             // Additionally iterating through all fields if necessary
             FieldInfo[] fields = player.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             foreach (FieldInfo field in fields)

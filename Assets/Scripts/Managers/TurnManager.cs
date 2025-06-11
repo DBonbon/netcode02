@@ -286,7 +286,6 @@ public class TurnManager : NetworkBehaviour
         NextCurrentPlayer();
         //Debug.Log("end turn is running");
     }
-
     private void NextCurrentPlayer()
     {
         //Debug.Log("next current player is called");
@@ -302,32 +301,42 @@ public class TurnManager : NetworkBehaviour
         // Turn off the current player's turn.
         currentPlayer.HasTurn.Value = false;
 
-        // Calculate the index of the next player. Wrap around if necessary.
+        // Start from the next player.
         int nextIndex = (currentIndex + 1) % players.Count;
 
-        // Ensure the next player exists.
-        if (nextIndex < players.Count && nextIndex >= 0)
+        // Try to find the next player who can play.
+        for (int i = 0; i < players.Count; i++)
         {
-            // Set the next player as the current player and turn their turn on.
-            currentPlayer = players[nextIndex];
-            currentPlayer.HasTurn.Value = true;
-            currentPlayer.UpdatePlayerToAskList(players);
-            currentPlayer.UpdateCardsPlayerCanAsk();
-            
-            // Log or perform additional actions as necessary.
-            //Debug.Log($"Turn assigned to player: {currentPlayer.playerName.Value}");
+            var nextPlayer = players[nextIndex];
+
+            // Check if player can play: has cards in hand OR there are cards left in deck.
+            bool canPlay = !nextPlayer.IsHandEmpty() || DeckManager.Instance.CurrentDeck.DeckCards.Count > 0;
+
+            if (canPlay)
+            {
+                // Found valid player → assign turn.
+                currentPlayer = nextPlayer;
+                currentPlayer.HasTurn.Value = true;
+                currentPlayer.UpdatePlayerToAskList(players);
+                currentPlayer.UpdateCardsPlayerCanAsk();
+
+                // Log or perform additional actions as necessary.
+                //Debug.Log($"Turn assigned to player: {currentPlayer.playerName.Value}");
+                return; // Exit after assigning turn.
+            }
+
+            // Move to next player.
+            nextIndex = (nextIndex + 1) % players.Count;
         }
-        else
-        {
-            // Handle the unexpected case where nextIndex is out of bounds.
-            Debug.LogError("Next player index is out of valid range.");
-        }
+
+        // If we reached here → no valid players → check game end.
+        CheckGameEnd();
     }
 
     private void CheckForQuartets()
     {
         //Debug.Log("check for quartets is called");
-        currentPlayer.CheckForQuartets(); // Implement your quartet-checking logic here
+        currentPlayer.CheckForQuartets(); // Implement your quartets-checking logic here
         // Check if the player's hand is empty after quartets are checked.
         if (IsPlayerHandEmpty(currentPlayer) &&  DeckManager.Instance.CurrentDeck.DeckCards.Count == 0)
         {

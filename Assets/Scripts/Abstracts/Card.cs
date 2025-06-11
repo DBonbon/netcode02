@@ -46,24 +46,25 @@ public class Card : NetworkBehaviour, IComparable<Card>
 
     public NetworkList<SiblingName> SiblingNames = new NetworkList<SiblingName>();
 
-    public void InitializeCard(int id, string name, string suit, string hint, List<string> siblings)
+    public void InitializeCard(int id, string name, string suit, string hint, List<string> siblings, string icon)
     {
-        Debug.Log("the intialized card was called");
-        Debug.Log($"checking is server on: {IsServer}");
+        //Debug.Log("the intialized card was called");
+        //Debug.Log($"checking is server on: {IsServer}");
         if (IsServer)
         {
-            Debug.Log($"checking is server on: {IsServer}");
+            //Debug.Log($"checking is server on: {IsServer}");
             cardId.Value = id;
             cardName.Value = name;
             Suit.Value = suit;
             Hint.Value = hint;
+            CardImagePath.Value = icon;
             SiblingNames.Clear();
             foreach (var sibling in siblings)
             {
                 SiblingNames.Add(new SiblingName(sibling));
             }
-            Debug.Log($"the cardId is: {cardId.Value}");
-            Debug.Log($"the cardname is: {cardName.Value}");
+            //Debug.Log($"the cardId is: {cardId.Value}");
+            //Debug.Log($"the cardname is: {cardName.Value}");
         }
     }
 

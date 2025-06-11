@@ -13,6 +13,8 @@ public class CardUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hintText;
     [SerializeField] private Image iconImage;
     [SerializeField] private List<TextMeshProUGUI> siblingTexts;
+    [SerializeField] private GameObject cardFront;
+    [SerializeField] private GameObject cardBack;
 
     private Sprite[] cardIcons;
 
@@ -20,26 +22,49 @@ public class CardUI : MonoBehaviour
     {
         cardIcons = Resources.LoadAll<Sprite>("Images/character_01"); // Adjust the path as needed
     }
-
-    public void UpdateCardUIWithCardData(CardData cardData)
+    private void Start()
     {
-        // Set the CardName when updating UI with card data
-        this.cardId = cardData.cardId;
-        CardName = cardData.cardName;
-        this.cardId = cardData.cardId;        
-        string matchingSiblingName = cardData.cardName; // For highlighting
-        UpdateUI(cardData.cardName, cardData.suit, cardData.hint, cardData.siblings, matchingSiblingName);
+        SetFaceUp(true); // Optional: start all cards face down
     }
 
-    public void UpdateUI(string cardName, string suit, string hint, List<string> siblings, string matchingSiblingName)
+
+   public void UpdateCardUIWithCardData(CardData cardData)
+    {
+        this.cardId = cardData.cardId;
+        CardName = cardData.cardName;
+
+        string matchingSiblingName = cardData.cardName;
+        UpdateUI(cardData.cardName, cardData.suit, cardData.hint, cardData.siblings, matchingSiblingName, cardData.icon);
+    }
+
+    public void SetFaceUp(bool faceUp)
+    {
+        if (cardFront != null && cardBack != null)
+        {
+            cardFront.SetActive(faceUp);
+            cardBack.SetActive(!faceUp);
+        }
+    }
+
+    public void UpdateUI(string cardName, string suit, string hint, List<string> siblings, string matchingSiblingName, string iconFileName)
     {
         cardNameText.text = cardName;
         suitText.text = suit;
         hintText.text = hint;
 
-        if (iconImage != null && cardIcons.Length > 0)
+        // Load the sprite dynamically
+        if (iconImage != null && !string.IsNullOrEmpty(iconFileName))
         {
-            iconImage.sprite = cardIcons[Random.Range(0, cardIcons.Length)];
+            Sprite loadedIcon = Resources.Load<Sprite>("Icons/" + System.IO.Path.GetFileNameWithoutExtension(iconFileName));
+            if (loadedIcon != null)
+            {
+                iconImage.sprite = loadedIcon;
+            }
+            else
+            {
+                Debug.LogWarning($"Missing icon: {iconFileName}, using fallback.");
+                iconImage.sprite = null; // or use a default sprite
+            }
         }
 
         for (int i = 0; i < siblingTexts.Count; i++)
@@ -56,6 +81,7 @@ public class CardUI : MonoBehaviour
             }
         }
     }
+
 
     public void ResetUI()
     {

@@ -75,11 +75,18 @@ public class PlayerUI : MonoBehaviour
     // New method to update UI based on card IDs
     public void UpdatePlayerHandUIWithIDs(List<int> cardIDs)
     {
+        // Ensure CardUIPool is ready (safe for client joining late)
+        CardManager.Instance.EnsureCardUIPoolInitializedIfNeeded();
+
+        // Hide old cards
         foreach (Transform child in cardDisplayTransform)
         {
             child.gameObject.SetActive(false);
         }
+
         Debug.Log("playerui UpdatePlayerHandUIWithIDs is called");
+
+        // Show new cards
         foreach (int cardID in cardIDs)
         {
             Debug.Log("playerui UpdatePlayerHandUIWithIDs is called in the loop");

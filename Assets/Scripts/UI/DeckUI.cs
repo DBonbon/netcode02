@@ -15,13 +15,13 @@ public class DeckUI : MonoBehaviour
     // Method to be called to update the UI representation of the deck
     public void UpdateDeckUIWithIDs(List<int> cardIDs)
     {
-        // Deactivate all child GameObjects to reset the state
+        Debug.Log($"[DeckUI] UpdateDeckUIWithIDs called. Card count: {cardIDs.Count} → Cards: {string.Join(", ", cardIDs)}");
+
         foreach (Transform child in deckDisplayTransform)
         {
-            child.gameObject.SetActive(false); // Disable all cards initially
+            child.gameObject.SetActive(false);
         }
 
-        // Activate and reparent the CardUI objects based on the current deck
         foreach (int cardID in cardIDs)
         {
             CardUI cardUI = CardManager.Instance.FetchCardUIById(cardID);
@@ -29,12 +29,12 @@ public class DeckUI : MonoBehaviour
             {
                 cardUI.gameObject.SetActive(true);
                 cardUI.transform.SetParent(deckDisplayTransform, false);
+                Debug.Log($"[DeckUI] SHOW → CardUI {cardUI.cardId} | {cardUI.CardName} moved to DeckUI.");
             }
             else
             {
-                Debug.LogWarning($"No CardUI found for card ID: {cardID}");
+                Debug.LogWarning($"[DeckUI] WARNING: No CardUI found for card ID: {cardID}");
             }
         }
     }
-    
 }
